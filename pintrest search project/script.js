@@ -53,14 +53,30 @@ function showCards() {
 }
 
 function handleSearch(){
-    document.querySelector("#searchinput")
-    .addEventListener("focus", () => {
+
+    let searchInput = document.querySelector("#searchinput")
+
+    searchInput.addEventListener("focus", () => {
         document.querySelector(".overlay").style.display = "block"
     })
 
-    document.querySelector("#searchinput")
-    .addEventListener("blur", () => {
+    searchInput.addEventListener("blur", () => {
         document.querySelector(".overlay").style.display = "none"
+    })
+
+    searchInput.addEventListener("input", () => {
+        const filteredArray = arr.filter(obj => obj.name.toLowerCase().startsWith(searchInput.value))
+        let clutter = ""
+        filteredArray.forEach((obj) => {
+            clutter += `<div class="res flex px-8 py-3">
+            <i class="ri-search-line font-semibold mr-5"></i>
+            <h3 class="font-semibold">${obj.name}</h3>
+            </div>`
+        })
+
+        let searchData = document.querySelector(".searchdata")
+        searchData.style.display = "block"
+        searchData.innerHTML = clutter
     })
 }
 
